@@ -3,15 +3,12 @@ import numpy as np
 from paddleocr import PaddleOCR
 
 
-# =============================
-# CONFIG
-# =============================
-IMAGE_PATH = "images/CALLING.png"
+IMAGE_PATH = "images/image.jpg"
 DEBUG_IMAGE = "debug_paddle.png"
 
 
 # =============================
-# PREPROCESADO SEGURO
+# PREPROCESADO
 # =============================
 def light_preprocess(image_path):
     img = cv2.imread(image_path)
@@ -20,66 +17,62 @@ def light_preprocess(image_path):
         raise ValueError("No se pudo cargar la imagen")
 
     h, w = img.shape[:2]
+    scale = 1.0
 
-    # Reescalar si es pequeña
     if w < 1000:
-        img = cv2.resize(
-            img, None, fx=2, fy=2,
-            interpolation=cv2.INTER_CUBIC
-        )
+        scale = 2.0
+        img = cv2.resize(img, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
 
-    # ❗ NO convertir a gris
-    # Reducir ruido conservando color
     denoise = cv2.fastNlMeansDenoisingColored(
-        img,
-        None,
-        h=10,
-        hColor=10,
-        templateWindowSize=7,
-        searchWindowSize=21
+        img, None, 10, 10, 7, 21
     )
 
-    return denoise
+    return denoise, scale
 
 
 # =============================
-# OCR (API NUEVA)
+# OCR
 # =============================
 def run_ocr(image):
     ocr = PaddleOCR(
-        lang="es",
-        use_textline_orientation=True  # ✅ reemplaza use_angle_cls
+        lang="en",
+        use_textline_orientation=True,
+        use_doc_unwarping=True,
+        use_doc_orientation_classify=True,
     )
-
     return ocr.predict(image)
 
 
 # =============================
-# DEBUG VISUAL
+# DIBUJAR BOXES (CORRECTO)
 # =============================
-def draw_boxes(image_path, result, output_path):
-    img = cv2.imread(image_path)
+def draw_boxes(image, result, output_path):
+    debug = image.copy()
 
     for res in result:
-        boxes = res["dt_polys"]
-        texts = res["rec_texts"]
-        scores = res["rec_scores"]
-
-        for box, text, score in zip(boxes, texts, scores):
+        for box, text, score in zip(
+            res["dt_polys"],
+            res["rec_texts"],
+            res["rec_scores"]
+        ):
             box = np.array(box, dtype=np.int32)
 
-            cv2.polylines(img, [box], True, (0, 255, 0), 2)
+            # Polígono real (mejor precisión)
+            x, y, w, h = cv2.boundingRect(box)
+            cv2.rectangle(debug, (x, y), (x + w, y + h), (255, 0, 0), 2)
+
+            x, y = box[0]
             cv2.putText(
-                img,
-                f"{text} ({score:.2f})",
-                (box[0][0], box[0][1] - 5),
+                debug,
+                text,
+                (x, y - 5),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 0.5,
                 (0, 255, 0),
                 1
             )
 
-    cv2.imwrite(output_path, img)
+    cv2.imwrite(output_path, debug)
 
 
 # =============================
@@ -87,14 +80,19 @@ def draw_boxes(image_path, result, output_path):
 # =============================
 if __name__ == "__main__":
 
-    processed = light_preprocess(IMAGE_PATH)
-    result = run_ocr(processed)
+    processed_img, scale = light_preprocess(IMAGE_PATH)
+    result = run_ocr(processed_img)
 
     print("\n===== TEXTO DETECTADO =====\n")
-
     for res in result:
-        for text, score in zip(res["rec_texts"], res["rec_scores"]):
-            print(f"{text} ({score:.2f})")
+        for t, s in zip(res["rec_texts"], res["rec_scores"]):
+            print(f"{t} ({s:.2f})")
 
-    draw_boxes(IMAGE_PATH, result, DEBUG_IMAGE)
+    draw_boxes(processed_img, result, DEBUG_IMAGE)
     print(f"\nDebug guardado en {DEBUG_IMAGE}")
+    # crear archivo txt con el texto detectado
+    with open("output.txt", "w", encoding="utf-8") as f:
+        for res in result:
+            for t, s in zip(res["rec_texts"], res["rec_scores"]):
+                f.write(f"{t} ({s:.2f})\n")
+    print("Texto guardado en output.txt")

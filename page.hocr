@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <meta name='ocr-system' content='tesseract v5.5.0.20241111' />
+  <meta name='ocr-capabilities' content='ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_dir ocrp_lang ocrp_wconf'/>
+ </head>
+ <body>
+  <div class='ocr_page' id='page_1' title='image "details.jpeg"; bbox 0 0 769 215; ppageno 0; scan_res 96 96'>
+   <div class='ocr_carea' id='block_1_1' title="bbox 18 21 661 191">
+    <p class='ocr_par' id='par_1_1' lang='spa' title="bbox 19 21 413 43">
+     <span class='ocr_line' id='line_1_1' title="bbox 19 21 413 43; baseline 0 -5; x_size 23.205883; x_descenders 5.5; x_ascenders 5.852941">
+      <span class='ocrx_word' id='word_1_1' title='bbox 19 22 60 38; x_wconf 92'>LOS</span>
+      <span class='ocrx_word' id='word_1_2' title='bbox 65 22 152 38; x_wconf 92'>AGAVES</span>
+      <span class='ocrx_word' id='word_1_3' title='bbox 158 21 201 40; x_wconf 96'>(SIN</span>
+      <span class='ocrx_word' id='word_1_4' title='bbox 208 21 292 40; x_wconf 93'>PERFIL)</span>
+      <span class='ocrx_word' id='word_1_5' title='bbox 298 22 413 43; x_wconf 72'>4Q25-copy</span>
+     </span>
+    </p>
+
+    <p class='ocr_par' id='par_1_2' lang='spa' title="bbox 19 93 273 112">
+     <span class='ocr_line' id='line_1_2' title="bbox 19 93 273 112; baseline 0 0; x_size 25.032257; x_descenders 6.032258; x_ascenders 6">
+      <span class='ocrx_word' id='word_1_6' title='bbox 19 94 110 112; x_wconf 96'>Detalles</span>
+      <span class='ocrx_word' id='word_1_7' title='bbox 116 94 148 112; x_wconf 96'>del</span>
+      <span class='ocrx_word' id='word_1_8' title='bbox 155 93 273 112; x_wconf 96'>formulario</span>
+     </span>
+    </p>
+
+    <p class='ocr_par' id='par_1_3' lang='spa' title="bbox 18 145 661 191">
+     <span class='ocr_line' id='line_1_3' title="bbox 19 145 657 161; baseline 0 0; x_size 21.104218; x_descenders 5.104218; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_9' title='bbox 19 145 139 161; x_wconf 96'>Identificador</span>
+      <span class='ocrx_word' id='word_1_10' title='bbox 144 146 171 161; x_wconf 96'>del</span>
+      <span class='ocrx_word' id='word_1_11' title='bbox 177 145 274 161; x_wconf 96'>formulario</span>
+      <span class='ocrx_word' id='word_1_12' title='bbox 595 145 657 161; x_wconf 96'>Idioma</span>
+     </span>
+     <span class='ocr_line' id='line_1_4' title="bbox 18 172 661 191; baseline 0 -4; x_size 18.348837; x_descenders 4.3488374; x_ascenders 4.6279068">
+      <span class='ocrx_word' id='word_1_13' title='bbox 18 173 195 187; x_wconf 92'>1756902621685447</span>
+      <span class='ocrx_word' id='word_1_14' title='bbox 595 172 661 191; x_wconf 96'>Español</span>
+     </span>
+    </p>
+   </div>
+  </div>
+ </body>
+</html>
